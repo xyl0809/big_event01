@@ -1,9 +1,11 @@
 $(function () {
   // 点击显示与隐藏
+  // 点击登录表单跳转到年注册表单
   $('#link-reg').on('click',function () {
     $('.login-box').hide()
     $('.reg-box').show()
   })
+  // 点击注册表单跳转到登录表单
   $('#link-login').on('click',function () {
     $('.login-box').show()
     $('.reg-box').hide()
@@ -28,22 +30,49 @@ $(function () {
   })
 
   // 注册功能
+  var layer=layui.layer
   $('#form-reg').on('submit',function (e) {
     e.preventDefault()
     // 发送ajax请求
     $.ajax({
       type: 'post',
-      url: 'http://ajax.frontend.itheima.net/api/reguser',
+      url: '/api/reguser',
       data: {
         username:$('.reg-box [name=username]').val(),
         password:$('.reg-box [name=password]').val(),
       },
       success:function (res) {
-        if (status !== 0) {
-          alert(res.message)
+        if (res.status !== 0) {
+          // alert(res.message)
+          return layer.msg(res.message)
         }
-        alert(res.message)        
+        // alert(res.message)    
+        layer.msg(res.message)
+        // 自动点击
+        $('#link-login').click()
+        // 清空表单
+        $('#form-reg')[0].reset()
+        
       }
     })
   })
+
+// 登录功能
+  $('#login-form').submit(function (e) {
+    e.preventDefault()
+    $.ajax({
+      type:'post',
+      url:'/api/login',
+      data: $(this).serialize(),
+      success:function (res) {
+        if (res.status !== 0) {
+          return layer.msg(res.message)
+        }
+        layer.msg(res.message)
+        localStorage.setItem('token', res.token);
+        location.href='/index.html'
+      }
+    })
+  })
+
 })
