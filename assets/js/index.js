@@ -1,5 +1,13 @@
 // 入口函数
 $(function () { 
+  var layer=layui.layer
+  $('#btnLoginOut').on('click', function () {
+    layer.confirm('是否退出?', {icon: 9, title:'提示'}, function(index){
+      localStorage.removeItem('token')  
+      location.href = '/login.html'      
+      layer.close(index);
+    });
+})
 
 
   getUserInfo()
@@ -21,6 +29,7 @@ function getUserInfo () {
     }
   })
 }
+// 渲染头像函数
 function renderAvatar (user) { 
   console.log(user);
 // 用户名
