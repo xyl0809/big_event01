@@ -38,7 +38,7 @@ function renderAvatar (user) {
   // 用户头像
   if (user.user_pic !== null) {
     // 有头像
-    $('.layui-nav-img').show().attr('scr', user.user_pic)
+    $('.layui-nav-img').show().attr('src', user.user_pic)
     $('.text-avatar').hide()
   }
   else {
