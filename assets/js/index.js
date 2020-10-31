@@ -34,7 +34,7 @@ function renderAvatar (user) {
   // console.log(user);
   // 用户名
   var name = user.nickname || user.username;
-  $('#welcome').html('欢迎' + name)
+  $('#welcome').html('欢迎&nbsp;' + name)
   // 用户头像
   if (user.user_pic !== null) {
     // 有头像
